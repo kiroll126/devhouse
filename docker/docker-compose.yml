@@ -1,0 +1,29 @@
+version: "1.1"
+services:
+  php-fpm:
+    build: ./php-fpm
+    volumes:
+      - ./php-fpm/conf.d:/opt/bitnami/php/etc/conf.d:ro
+      - "${WORKDIR}:/app:rw"
+      - ./php-fpm/scripts:/scripts:ro
+    depends_on:
+      - db
+  apache:
+    image: bitnami/apache:2.4.41-debian-9-r49
+    ports:
+      - 8080:8080
+    volumes:
+      - "${WORKDIR}:/app"
+      - ./apache/vhosts:/vhosts:ro
+    depends_on:
+      - php-fpm
+  db:
+    image: percona
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 11121314
+      MYSQL_DATABASE: openmage_lts
+    ports:
+      - 3306:3306
+    volumes:
+      - "${DATADIR}/dockerbind/percona:/var/lib/mysql:rw"
