@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Kiroll_AdminUserExtend>
+            <version>0.1.0</version>
+        </Kiroll_AdminUserExtend>
+    </modules>
+    <global>
+        <blocks>
+            <admin_user_extend>
+                <class>JRDunn_Brand_Block</class>
+            </admin_user_extend>
+        </blocks>
+        <models>
+            <admin_user_extend>
+                <class>JRDunn_Brand_Model</class>
+            </admin_user_extend>
+        </models>
+        <helpers>
+            <admin_user_extend>
+                <class>JRDunn_Brand_Helper</class>
+            </admin_user_extend>
+        </helpers>
+        <resources>
+            <admin_user_extend_setup>
+                <setup>
+                    <module>Kiroll_AdminUserExtend</module>
+                </setup>
+            </admin_user_extend_setup>
+        </resources>
+    </global>
+</config>
