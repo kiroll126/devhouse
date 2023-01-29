@@ -35,4 +35,15 @@
             </admin_user_extend_setup>
         </resources>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <admin_user_extend before="Mage_Adminhtml">Kiroll_AdminUserExtend_Adminhtml</admin_user_extend>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 </config>

@@ -6,6 +6,11 @@ class Kiroll_AdminUserExtend_Block_Adminhtml_System_Account_Edit_Form extends Ma
     {
         parent::_prepareForm();
 
+        $userId = Mage::getSingleton('admin/session')->getUser()->getId();
+        $user = Mage::getModel('admin/user')
+            ->load($userId);
+        $user->unsetData('password');
+
         $form = $this->getForm();
         $fieldset = $form->getElement('base_fieldset');
 
@@ -19,13 +24,15 @@ class Kiroll_AdminUserExtend_Block_Adminhtml_System_Account_Edit_Form extends Ma
             'name'      => 'phone',
             'label'     => Mage::helper('admin_user_extend')->__('Phone Number'),
             'title'     => Mage::helper('admin_user_extend')->__('Phone Number'),
-        ]);
+            ]);
 
         $fieldset->addField('photo', 'file', [
             'name'      => 'photo',
             'label'     => Mage::helper('admin_user_extend')->__('Profile Photo'),
             'title'     => Mage::helper('admin_user_extend')->__('Profile Photo'),
-        ]);
+            ]);
+
+        $form->setValues($user->getData());
 
         return $this;
     }
