@@ -6,6 +6,7 @@
             <codePool>local</codePool>
             <depends>
                 <Mage_Admin />
+                <Mage_Adminhtml />
             </depends>
         </Kiroll_AdminUserExtend>
     </modules>

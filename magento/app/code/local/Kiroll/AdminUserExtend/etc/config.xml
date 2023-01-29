@@ -9,17 +9,22 @@
     <global>
         <blocks>
             <admin_user_extend>
-                <class>JRDunn_Brand_Block</class>
+                <class>Kiroll_AdminUserExtend_Block</class>
             </admin_user_extend>
+            <adminhtml>
+                <rewrite>
+                    <system_account_edit_form>Kiroll_AdminUserExtend_Block_Adminhtml_System_Account_Edit_Form</system_account_edit_form>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <models>
             <admin_user_extend>
-                <class>JRDunn_Brand_Model</class>
+                <class>Kiroll_AdminUserExtend_Model</class>
             </admin_user_extend>
         </models>
         <helpers>
             <admin_user_extend>
-                <class>JRDunn_Brand_Helper</class>
+                <class>Kiroll_AdminUserExtend_Helper</class>
             </admin_user_extend>
         </helpers>
         <resources>
