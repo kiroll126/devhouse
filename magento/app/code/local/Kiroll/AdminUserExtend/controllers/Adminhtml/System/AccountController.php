@@ -5,7 +5,7 @@ require_once Mage::getModuleDir('controllers', 'Mage_Adminhtml') . DS . 'System'
 class Kiroll_AdminUserExtend_Adminhtml_System_AccountController extends Mage_Adminhtml_System_AccountController
 {
     /**
-     * Saving edited user information
+     * Saving edited user information with new fields (job_description, phone, photo)
      */
     public function saveAction()
     {
@@ -47,8 +47,13 @@ class Kiroll_AdminUserExtend_Adminhtml_System_AccountController extends Mage_Adm
         }
 
         try {
-            $photoPath = $this->uploadImage();
-            if ($photoPath) $user->setPhoto($photoPath);
+            //Remove or upload profile photo
+            if ($this->getRequest()->getParam('remove_photo', false)) {
+                if ($this->removePhoto($user->getPhoto())) $user->setPhoto(null);
+            } else {
+                $photoPath = $this->uploadPhoto();
+                if ($photoPath) $user->setPhoto($photoPath);
+            }
 
             $user->save();
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The account has been saved.'));
@@ -60,12 +65,19 @@ class Kiroll_AdminUserExtend_Adminhtml_System_AccountController extends Mage_Adm
         $this->getResponse()->setRedirect($this->getUrl("*/*/"));
     }
 
-    protected function uploadImage()
+    /**
+     * @return false|string
+     * @throws Exception
+     *
+     * Upload new profile photo
+     */
+    protected function uploadPhoto()
     {
         if (!isset($_FILES['photo']['name']) || $_FILES['photo']['name'] == '') {
             return false;
         }
 
+        //@todo: move in helper
         $path = Mage::getBaseDir('media') . DS . 'admin' . DS . 'photo';
 
         try {
@@ -83,5 +95,27 @@ class Kiroll_AdminUserExtend_Adminhtml_System_AccountController extends Mage_Adm
             $this->_getSession()->addError(Mage::helper('adminhtml')->__("Image not loaded. %s", $e->getMessage()));
             throw new Exception($e->getMessage());
         }
+    }
+
+    /**
+     * @param $photo
+     * @return bool
+     * @throws Exception
+     *
+     * Removed old profile photo
+     */
+    protected function removePhoto($photo)
+    {
+        $path = Mage::getBaseDir('media') . DS . 'admin' . DS . 'photo';
+
+        try {
+            $io = new Varien_Io_File();
+            $io->rm($path . DS . $photo);
+        } catch (Exception $e) {
+            $this->_getSession()->addError(Mage::helper('adminhtml')->__("Image not removed. %s", $e->getMessage()));
+            throw new Exception($e->getMessage());
+        }
+
+        return true;
     }
 }

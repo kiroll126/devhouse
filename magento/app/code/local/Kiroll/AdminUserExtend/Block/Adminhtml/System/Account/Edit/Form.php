@@ -33,7 +33,16 @@ class Kiroll_AdminUserExtend_Block_Adminhtml_System_Account_Edit_Form extends Ma
             'label'     => Mage::helper('admin_user_extend')->__('Profile Photo'),
             'title'     => Mage::helper('admin_user_extend')->__('Profile Photo'),
             'after_element_html' => $this->getImageHtml($user->getPhoto()),
-        ]);
+            ]);
+
+        if ($user->getPhoto()) {
+            $fieldset->addField('remove_photo', 'select', [
+                'name'   => 'remove_photo',
+                'label'  => Mage::helper('admin_user_extend')->__('Remove Profile Photo'),
+                'title'  => Mage::helper('admin_user_extend')->__('Remove Profile Photo'),
+                'values' => Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(),
+            ]);
+        }
 
         return $this;
     }
