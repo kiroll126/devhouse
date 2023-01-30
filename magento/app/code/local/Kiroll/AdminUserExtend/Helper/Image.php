@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @category   Kiroll
+ * @package    Kiroll_AdminUserExtend
+ * @author     Kirill Olefirenko <kiroll161@gmail.com>
+ */
+
 class Kiroll_AdminUserExtend_Helper_Image extends Mage_Core_Helper_Abstract
 {
     /**
@@ -55,16 +61,25 @@ class Kiroll_AdminUserExtend_Helper_Image extends Mage_Core_Helper_Abstract
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getProfilePhotoPath()
     {
         return Mage::getBaseDir('media') . DS . 'admin' . DS . 'photo';
     }
 
+    /**
+     * @return string
+     */
     public function getProfilePhotoUrl()
     {
         return Mage::getBaseUrl('media') . DS . 'admin' . DS . 'photo';
     }
 
+    /**
+     * @return string
+     */
     public function getDefaultProfilePhoto()
     {
         return Mage::getDesign()->getSkinBaseUrl(array('_area'=>'adminhtml', '_theme'=>'default')) . 'images' . DS . 'header' . DS . 'default-photo.jpeg';

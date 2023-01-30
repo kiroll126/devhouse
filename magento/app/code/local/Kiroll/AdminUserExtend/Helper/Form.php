@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @category   Kiroll
+ * @package    Kiroll_AdminUserExtend
+ * @author     Kirill Olefirenko <kiroll161@gmail.com>
+ */
+
 class Kiroll_AdminUserExtend_Helper_Form extends Mage_Core_Helper_Abstract
 {
     public function addNewFieldsToFieldset($fieldset, $model)

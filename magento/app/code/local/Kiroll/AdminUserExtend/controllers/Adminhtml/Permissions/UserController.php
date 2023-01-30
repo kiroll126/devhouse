@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @category   Kiroll
+ * @package    Kiroll_AdminUserExtend
+ * @author     Kirill Olefirenko <kiroll161@gmail.com>
+ */
+
 require_once Mage::getModuleDir('controllers', 'Mage_Adminhtml') . DS . 'Permissions' . DS . 'UserController.php';
 
 class Kiroll_AdminUserExtend_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Permissions_UserController

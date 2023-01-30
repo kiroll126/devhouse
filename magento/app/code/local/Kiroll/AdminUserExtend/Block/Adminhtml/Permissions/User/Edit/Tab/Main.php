@@ -1,7 +1,18 @@
 <?php
 
+/**
+ * @category   Kiroll
+ * @package    Kiroll_AdminUserExtend
+ * @author     Kirill Olefirenko <kiroll161@gmail.com>
+ */
+
 class Kiroll_AdminUserExtend_Block_Adminhtml_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main
 {
+    /**
+     * @return $this
+     *
+     * Add new fields to permission form
+     */
     protected function _prepareForm()
     {
         parent::_prepareForm();
