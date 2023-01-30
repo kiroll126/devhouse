@@ -10,9 +10,8 @@ class Kiroll_AdminUserExtend_Adminhtml_System_AccountController extends Mage_Adm
     public function saveAction()
     {
         $userId = Mage::getSingleton('admin/session')->getUser()->getId();
-        $pwd    = null;
-
         $user = Mage::getModel("admin/user")->load($userId);
+        $imageHelper = Mage::helper('admin_user_extend/image');
 
         $user->setId($userId)
             ->setUsername($this->getRequest()->getParam('username', false))
@@ -49,9 +48,9 @@ class Kiroll_AdminUserExtend_Adminhtml_System_AccountController extends Mage_Adm
         try {
             //Remove or upload profile photo
             if ($this->getRequest()->getParam('remove_photo', false)) {
-                if ($this->removePhoto($user->getPhoto())) $user->setPhoto(null);
+                if ($imageHelper->removeImage($user->getPhoto())) $user->setPhoto(null);
             } else {
-                $photoPath = $this->uploadPhoto();
+                $photoPath = $imageHelper->uploadImage('photo');
                 if ($photoPath) $user->setPhoto($photoPath);
             }
 
@@ -63,59 +62,5 @@ class Kiroll_AdminUserExtend_Adminhtml_System_AccountController extends Mage_Adm
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
         }
         $this->getResponse()->setRedirect($this->getUrl("*/*/"));
-    }
-
-    /**
-     * @return false|string
-     * @throws Exception
-     *
-     * Upload new profile photo
-     */
-    protected function uploadPhoto()
-    {
-        if (!isset($_FILES['photo']['name']) || $_FILES['photo']['name'] == '') {
-            return false;
-        }
-
-        //@todo: move in helper
-        $path = Mage::getBaseDir('media') . DS . 'admin' . DS . 'photo';
-
-        try {
-            $uploader = new Mage_Core_Model_File_Uploader('photo');
-            $uploader->setAllowedExtensions(array('jpg','jpeg','gif','png'));
-            $uploader->setAllowRenameFiles(true);
-            $uploader->addValidateCallback(
-                Mage_Core_Model_File_Validator_Image::NAME,
-                new Mage_Core_Model_File_Validator_Image(),
-                "validate"
-            );
-            $result = $uploader->save($path);
-            return $result['file'];
-        } catch (Exception $e) {
-            $this->_getSession()->addError(Mage::helper('adminhtml')->__("Image not loaded. %s", $e->getMessage()));
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    /**
-     * @param $photo
-     * @return bool
-     * @throws Exception
-     *
-     * Removed old profile photo
-     */
-    protected function removePhoto($photo)
-    {
-        $path = Mage::getBaseDir('media') . DS . 'admin' . DS . 'photo';
-
-        try {
-            $io = new Varien_Io_File();
-            $io->rm($path . DS . $photo);
-        } catch (Exception $e) {
-            $this->_getSession()->addError(Mage::helper('adminhtml')->__("Image not removed. %s", $e->getMessage()));
-            throw new Exception($e->getMessage());
-        }
-
-        return true;
     }
 }
