@@ -14,7 +14,7 @@ class Kiroll_AdminUserExtend_Helper_Image extends Mage_Core_Helper_Abstract
             return false;
         }
 
-        $path = $this->getUploadPath();
+        $path = $this->getProfilePhotoPath();
 
         try {
             $uploader = new Mage_Core_Model_File_Uploader($key);
@@ -42,7 +42,7 @@ class Kiroll_AdminUserExtend_Helper_Image extends Mage_Core_Helper_Abstract
      */
     public function removeImage($image)
     {
-        $path = $this->getUploadPath();
+        $path = $this->getProfilePhotoPath();
 
         try {
             $io = new Varien_Io_File();
@@ -55,8 +55,18 @@ class Kiroll_AdminUserExtend_Helper_Image extends Mage_Core_Helper_Abstract
         return true;
     }
 
-    public function getUploadPath()
+    public function getProfilePhotoPath()
     {
         return Mage::getBaseDir('media') . DS . 'admin' . DS . 'photo';
+    }
+
+    public function getProfilePhotoUrl()
+    {
+        return Mage::getBaseUrl('media') . DS . 'admin' . DS . 'photo';
+    }
+
+    public function getDefaultProfilePhoto()
+    {
+        return Mage::getDesign()->getSkinBaseUrl(array('_area'=>'adminhtml', '_theme'=>'default')) . 'images' . DS . 'header' . DS . 'default-photo.jpeg';
     }
 }

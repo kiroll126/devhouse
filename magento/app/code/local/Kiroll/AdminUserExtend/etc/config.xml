@@ -47,4 +47,13 @@
             </adminhtml>
         </routers>
     </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <admin_user_extend>
+                    <file>kiroll/admin_user_extend.xml</file>
+                </admin_user_extend>
+            </updates>
+        </layout>
+    </adminhtml>
 </config>

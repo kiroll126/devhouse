@@ -1,0 +1,15 @@
+.header-right .profile-photo {
+    width: 36px;
+    height: 36px;
+    float: right;
+    overflow: hidden;
+    margin-right: 12px;
+}
+
+.header-right .profile-photo a img {
+    width: 36px;
+}
+
+.header-right #usermenu li a {
+    padding-right: 8px;
+}

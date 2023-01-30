@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<layout>
+    <default>
+        <reference name="root">
+            <block type="admin_user_extend/adminhtml_page_header" name="header" as="header"/>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>css/header.css</name></action>
+        </reference>
+    </default>
+</layout>
