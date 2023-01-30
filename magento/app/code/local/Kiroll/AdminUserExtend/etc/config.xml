@@ -14,6 +14,7 @@
             <adminhtml>
                 <rewrite>
                     <system_account_edit_form>Kiroll_AdminUserExtend_Block_Adminhtml_System_Account_Edit_Form</system_account_edit_form>
+                    <permissions_user_edit_tab_main>Kiroll_AdminUserExtend_Block_Adminhtml_Permissions_User_Edit_Tab_Main</permissions_user_edit_tab_main>
                 </rewrite>
             </adminhtml>
         </blocks>
